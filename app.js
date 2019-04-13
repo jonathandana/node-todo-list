@@ -14,6 +14,6 @@ switch (command) {
         break;
 
     default:
-        console.log('Command not found please check --help');
+        console.log('Command not found please check (--help)');
 
 }
