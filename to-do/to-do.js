@@ -1,4 +1,6 @@
 const fs = require('fs');
+const colors  = require('colors');
+
 
 //example with file system.
 //let todo_list = JSON.parse(fs.readFileSync('db/data.json'));
@@ -33,7 +35,46 @@ const create = (description)=>{
     return todo;
 };
 
+const getList = ()=> {
+    loadDb();
+    return todo_list;
+};
+
+const updateTask = (description,complete = true) =>{
+    loadDb();
+    let index = todo_list.findIndex(task => task.description === description);
+
+    if(index === -1){
+        console.log('not found the task'.red);
+        return false;
+    }
+
+    todo_list[index].complete = complete;
+    saveDb();
+    return true;
+
+
+};
+
+const deleteTask = (description)=>{
+    loadDb();
+    let index = todo_list.findIndex(task => task.description === description);
+
+    if(index === -1){
+        console.log('not found the task'.red);
+        return false;
+    }
+    todo_list.splice(index,1);
+    saveDb();
+
+    return true
+
+};
+
 
 module.exports = {
-    create
+    create,
+    getList,
+    updateTask,
+    deleteTask
 };
